@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            width: 350px;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 0;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .header p {
+            margin: 5px 0 0 0;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .status {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-dot.ready {
+            background: #4ade80;
+        }
+        
+        .status-dot.scraping {
+            background: #fbbf24;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+        
+        .btn-primary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background: #059669;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #047857;
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .progress {
+            margin: 15px 0;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #4ade80;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            font-size: 12px;
+            margin-top: 5px;
+            text-align: center;
+            opacity: 0.8;
+        }
+        
+        .results {
+            display: none;
+        }
+        
+        .results.show {
+            display: block;
+        }
+        
+        .result-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 8px;
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+        
+        .result-name {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        
+        .result-details {
+            opacity: 0.8;
+            font-size: 11px;
+        }
+        
+        .export-options {
+            display: none;
+        }
+        
+        .export-options.show {
+            display: block;
+        }
+        
+        .checkbox-group {
+            margin: 10px 0;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 8px;
+            transform: scale(1.1);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 11px;
+            opacity: 0.6;
+        }
+        
+        .warning {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 12px;
+        }
+        
+        .icon {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏢 Business Scraper</h1>
+        <p>Ekstrak data profil bisnis Google</p>
+    </div>
+
+    <div class="warning">
+        <strong>⚠️ Perhatian:</strong> Pastikan Anda berada di halaman Google Maps dengan profil bisnis yang ingin di-scrape.
+    </div>
+
+    <div class="card">
+        <div class="status">
+            <div class="status-dot ready" id="statusDot"></div>
+            <span id="statusText">Siap untuk scraping</span>
+        </div>
+        
+        <button class="btn btn-primary" id="startScraping">
+            <span class="icon">🔍</span>
+            Mulai Scraping
+        </button>
+        
+        <div class="progress" style="display: none;" id="progressContainer">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">Memproses...</div>
+        </div>
+    </div>
+
+    <div class="results" id="resultsContainer">
+        <div class="card">
+            <h3 style="margin: 0 0 10px 0; font-size: 14px;">Data Berhasil Diekstrak</h3>
+            <div id="resultsList"></div>
+            
+            <div class="export-options" id="exportOptions">
+                <h4 style="margin: 15px 0 10px 0; font-size: 13px;">Pilih Data untuk Export:</h4>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="exportBasicInfo" checked>
+                        <label for="exportBasicInfo">Info Dasar (Nama, Alamat, Telepon)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="exportHours" checked>
+                        <label for="exportHours">Jam Operasional</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="exportReviews" checked>
+                        <label for="exportReviews">Review & Rating</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="exportPhotos" checked>
+                        <label for="exportPhotos">URL Foto</label>
+                    </div>
+                </div>
+                
+                <button class="btn btn-success" id="exportCsv">
+                    <span class="icon">📄</span>
+                    Export ke CSV
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Gunakan dengan bijak dan patuhi ToS Google
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
