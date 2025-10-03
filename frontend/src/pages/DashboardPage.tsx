@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { ThemeToggle } from '@/components/ThemeToggle'
-import { Plus, LogOut, Trash2, Edit, ArrowLeft, GripVertical, Calendar, Tag, User, MessageCircle, Check } from 'lucide-react'
+import { Plus, LogOut, Trash2, Edit, ArrowLeft, GripVertical } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -131,31 +131,35 @@ export const DashboardPage: React.FC = () => {
   const priorityConfig = {
     high: { 
       label: 'High Priority', 
-      color: 'bg-red-500', 
-      bgColor: 'bg-gradient-to-br from-red-50 to-red-100 dark:from-red-950/50 dark:to-red-900/50',
-      borderColor: 'border-red-200 dark:border-red-800',
-      textColor: 'text-red-700 dark:text-red-300'
+      color: 'bg-rose-500', 
+      bgColor: 'bg-gradient-to-br from-rose-50 to-rose-100 dark:from-rose-950/30 dark:to-rose-900/20',
+      borderColor: 'border-rose-200 dark:border-rose-800/50',
+      textColor: 'text-rose-700 dark:text-rose-300',
+      shadow: 'shadow-rose-100/50 dark:shadow-rose-900/20'
     },
     medium: { 
       label: 'Medium Priority', 
       color: 'bg-amber-500', 
-      bgColor: 'bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-950/50 dark:to-amber-900/50',
-      borderColor: 'border-amber-200 dark:border-amber-800',
-      textColor: 'text-amber-700 dark:text-amber-300'
+      bgColor: 'bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-950/30 dark:to-amber-900/20',
+      borderColor: 'border-amber-200 dark:border-amber-800/50',
+      textColor: 'text-amber-700 dark:text-amber-300',
+      shadow: 'shadow-amber-100/50 dark:shadow-amber-900/20'
     },
     low: { 
       label: 'Low Priority', 
-      color: 'bg-green-500', 
-      bgColor: 'bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/50 dark:to-green-900/50',
-      borderColor: 'border-green-200 dark:border-green-800',
-      textColor: 'text-green-700 dark:text-green-300'
+      color: 'bg-emerald-500', 
+      bgColor: 'bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-950/30 dark:to-emerald-900/20',
+      borderColor: 'border-emerald-200 dark:border-emerald-800/50',
+      textColor: 'text-emerald-700 dark:text-emerald-300',
+      shadow: 'shadow-emerald-100/50 dark:shadow-emerald-900/20'
     },
     backlog: { 
       label: 'Backlog', 
-      color: 'bg-indigo-500', 
-      bgColor: 'bg-gradient-to-br from-indigo-50 to-indigo-100 dark:from-indigo-950/50 dark:to-indigo-900/50',
-      borderColor: 'border-indigo-200 dark:border-indigo-800',
-      textColor: 'text-indigo-700 dark:text-indigo-300'
+      color: 'bg-slate-500', 
+      bgColor: 'bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950/30 dark:to-slate-900/20',
+      borderColor: 'border-slate-200 dark:border-slate-800/50',
+      textColor: 'text-slate-700 dark:text-slate-300',
+      shadow: 'shadow-slate-100/50 dark:shadow-slate-900/20'
     }
   }
 
@@ -168,9 +172,9 @@ export const DashboardPage: React.FC = () => {
   }
 
   return (
-    <div className="h-screen w-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-950 dark:via-gray-900 dark:to-indigo-950 flex flex-col overflow-hidden fixed inset-0">
+    <div className="h-screen w-screen bg-gradient-to-br from-gray-50 via-slate-50 to-zinc-100 dark:from-gray-900 dark:via-gray-950 dark:to-slate-900 flex flex-col overflow-hidden fixed inset-0">
       {/* Header */}
-      <header className="border-b bg-white/80 dark:bg-gray-900/80 backdrop-blur-md flex-shrink-0 relative z-10">
+      <header className="border-b bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl flex-shrink-0 relative z-10 shadow-sm dark:shadow-gray-900/20">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -321,6 +325,7 @@ interface DroppableColumnProps {
     bgColor: string
     borderColor: string
     textColor: string
+    shadow: string
   }
   tasks: ITask[]
   users: IUser[]
@@ -353,16 +358,16 @@ const DroppableColumn: React.FC<DroppableColumnProps> = ({
         id={priority}
         className="h-full"
       >
-        <Card className={`${config.bgColor} ${config.borderColor} border-2 shadow-lg hover:shadow-xl transition-all duration-200 h-full`}>
-          <CardHeader className="pb-3">
+        <Card className={`${config.bgColor} ${config.borderColor} border shadow-lg hover:shadow-xl transition-all duration-300 h-full rounded-2xl ${config.shadow}`}>
+          <CardHeader className="pb-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className={`w-4 h-4 rounded-full ${config.color} shadow-sm`} />
-                <CardTitle className={`text-lg font-semibold ${config.textColor}`}>
+                <div className={`w-3 h-3 rounded-full ${config.color}`}></div>
+                <CardTitle className={`text-xl font-bold ${config.textColor}`}>
                   {config.label}
                 </CardTitle>
               </div>
-              <Badge variant="secondary" className="text-xs px-2 py-1">
+              <Badge variant="secondary" className="text-sm px-3 py-1 rounded-full font-semibold">
                 {tasks.length}
               </Badge>
             </div>
@@ -463,10 +468,6 @@ const DraggableTaskCard: React.FC<DraggableTaskCardProps> = ({
 
   const assignee = users.find(u => u._id === task.assignee)
 
-  const handleStatusChange = (newStatus: Status) => {
-    onUpdate({ status: newStatus })
-  }
-
   const handleSaveEdit = () => {
     onUpdate(editData)
     setIsEditMode(false)
@@ -479,7 +480,7 @@ const DraggableTaskCard: React.FC<DraggableTaskCardProps> = ({
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
-      <Card className="group hover:shadow-lg transition-all duration-200 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-2 hover:border-blue-200 dark:hover:border-blue-700 cursor-grab active:cursor-grabbing">
+      <Card className="group hover:shadow-lg transition-all duration-300 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border border-gray-200/70 dark:border-gray-700/70 hover:border-blue-300 dark:hover:border-blue-700/50 cursor-grab active:cursor-grabbing rounded-xl shadow-sm hover:shadow-blue-100/30 dark:hover:shadow-blue-900/10">
         <CardContent className="p-4">
           {isEditMode ? (
             <div className="space-y-3">
@@ -512,64 +513,73 @@ const DraggableTaskCard: React.FC<DraggableTaskCardProps> = ({
                   <div 
                     {...attributes} 
                     {...listeners}
-                    className="cursor-grab active:cursor-grabbing p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                    className="cursor-grab active:cursor-grabbing p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
                   >
                     <GripVertical className="h-4 w-4 text-gray-400" />
                   </div>
-                  <h3 className="font-semibold text-sm line-clamp-2 text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors flex-1">
+                  <h3 className="font-semibold text-base line-clamp-2 text-gray-900 dark:text-gray-50 pr-2">
                     {task.title}
                   </h3>
                 </div>
-                <div className="flex opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="flex opacity-0 group-hover:opacity-100 transition-opacity gap-1">
                   <Button
                     size="sm"
                     variant="ghost"
                     onClick={() => onEdit(task)}
-                    className="h-7 w-7 p-0 hover:bg-blue-100 dark:hover:bg-blue-900"
+                    className="h-8 w-8 p-0 hover:bg-blue-100 dark:hover:bg-blue-900/50 rounded-lg transition-colors"
                   >
-                    <Edit className="h-3 w-3" />
+                    <Edit className="h-4 w-4" />
                   </Button>
                   <Button
                     size="sm"
                     variant="ghost"
                     onClick={onDelete}
                     disabled={isDeleting}
-                    className="h-7 w-7 p-0 text-red-500 hover:text-red-700 hover:bg-red-100 dark:hover:bg-red-900"
+                    className="h-8 w-8 p-0 text-red-500 hover:text-red-700 hover:bg-red-100 dark:hover:bg-red-900/50 rounded-lg transition-colors"
                   >
-                    <Trash2 className="h-3 w-3" />
+                    <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
               </div>
 
               {task.description && (
-                <p className="text-xs text-muted-foreground mb-4 line-clamp-2 bg-gray-50 dark:bg-gray-800/50 rounded-md p-2">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3 bg-gray-50/50 dark:bg-gray-700/30 rounded-lg p-3">
                   {task.description}
                 </p>
               )}
 
-              <div className="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-gray-700">
-                <select
-                  value={task.status}
-                  onChange={(e) => handleStatusChange(e.target.value as Status)}
-                  disabled={isUpdating}
-                  className="text-xs border-2 rounded-md px-2 py-1 bg-white dark:bg-gray-800 focus:border-blue-400 focus:outline-none font-medium"
-                >
-                  <option value="pending">📋 Pending</option>
-                  <option value="in-progress">⚡ In Progress</option>
-                  <option value="completed">✅ Completed</option>
-                </select>
+              <div className="flex items-center justify-between pt-3 border-t border-gray-100/50 dark:border-gray-700/50">
+                <div className="flex items-center gap-2">
+                  <select
+                    value={task.status}
+                    onChange={(e) => onUpdate({ status: e.target.value as Status })}
+                    disabled={isUpdating}
+                    className="text-xs border rounded-full px-2 py-1 bg-white dark:bg-gray-800 focus:outline-none font-medium cursor-pointer"
+                  >
+                    <option value="pending">📋 Pending</option>
+                    <option value="in-progress">⚡ In Progress</option>
+                    <option value="completed">✅ Completed</option>
+                  </select>
+                  {task.priority && (
+                    <Badge 
+                      variant="secondary" 
+                      className="text-xs px-2 py-1 rounded-full font-medium border-0"
+                    >
+                      {task.priority === 'high' ? '🔴 High' : 
+                       task.priority === 'medium' ? '🟡 Medium' : 
+                       task.priority === 'low' ? '🟢 Low' : '🟣 Backlog'}
+                    </Badge>
+                  )}
+                </div>
 
                 {assignee && (
-                  <div className="flex items-center gap-1 bg-gray-50 dark:bg-gray-800/50 rounded-full px-2 py-1">
-                    <Avatar className="h-5 w-5 border border-gray-200 dark:border-gray-600">
+                  <div className="flex items-center gap-1 bg-gray-100/50 dark:bg-gray-700/30 rounded-full px-2 py-1">
+                    <Avatar className="h-6 w-6 border border-gray-200 dark:border-gray-600">
                       <AvatarImage src={assignee.avatarUrl} />
                       <AvatarFallback className="text-xs bg-gradient-to-br from-blue-500 to-purple-600 text-white">
                         {assignee.name.charAt(0)}
                       </AvatarFallback>
                     </Avatar>
-                    <span className="text-xs text-muted-foreground font-medium truncate max-w-16">
-                      {assignee.name.split(' ')[0]}
-                    </span>
                   </div>
                 )}
               </div>
@@ -780,124 +790,131 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
     }
   }
 
-  const priorityOptions = [
-    { value: 'high', label: '🔴 High Priority', color: 'text-red-500' },
-    { value: 'medium', label: '🟡 Medium Priority', color: 'text-amber-500' },
-    { value: 'low', label: '🟢 Low Priority', color: 'text-green-500' },
-    { value: 'backlog', label: '🟣 Backlog', color: 'text-indigo-500' }
-  ]
-
-  const statusOptions = [
-    { value: 'pending', label: '📋 Pending', color: 'text-gray-500' },
-    { value: 'in-progress', label: '⚡ In Progress', color: 'text-blue-500' },
-    { value: 'completed', label: '✅ Completed', color: 'text-green-500' }
-  ]
-
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <DialogTitle className="text-3xl font-bold text-gray-900 dark:text-white">
             Edit Task
           </DialogTitle>
+          <p className="text-gray-500 dark:text-gray-400 mt-1">
+            Make changes to your task details
+          </p>
         </DialogHeader>
         
         {task ? (
-          <form onSubmit={handleSubmit} className="space-y-6 mt-4">
+          <form onSubmit={handleSubmit} className="space-y-6 mt-6">
             {/* Title */}
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
-                <Edit className="h-4 w-4" />
+              <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                 Task Title *
               </label>
               <Input
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 placeholder="Enter task title"
-                className="border-2 focus:border-blue-400 text-lg font-medium"
+                className="border border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-lg font-medium rounded-xl py-6 px-4"
                 required
               />
             </div>
             
             {/* Description */}
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
-                <MessageCircle className="h-4 w-4" />
+              <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                 Description
               </label>
               <textarea
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 placeholder="Enter task description"
-                className="border-2 focus:border-blue-400 min-h-[120px]"
+                className="w-full min-h-[150px] border border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 rounded-xl p-4 text-base bg-white dark:bg-gray-800 transition-colors resize-none"
               />
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Due Date */}
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
-                  <Calendar className="h-4 w-4" />
+                <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                   Due Date
                 </label>
                 <Input
                   type="date"
                   value={formData.dueDate}
                   onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
-                  className="border-2 focus:border-blue-400"
+                  className="border border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 rounded-xl py-5 px-4"
                 />
               </div>
               
               {/* Priority */}
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
-                  <Tag className="h-4 w-4" />
+                <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                   Priority
                 </label>
-                <select
-                  value={formData.priority}
-                  onChange={(e) => setFormData({ ...formData, priority: e.target.value as unknown as Priority })}
-                  className="w-full p-2 border-2 rounded-lg focus:border-blue-400 focus:outline-none bg-white dark:bg-gray-800"
-                >
-                  {priorityOptions.map(option => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
+                <div className="grid grid-cols-2 gap-2">
+                  {[
+                    { value: 'high', label: 'High', color: 'bg-rose-500', textColor: 'text-rose-700 dark:text-rose-300' },
+                    { value: 'medium', label: 'Medium', color: 'bg-amber-500', textColor: 'text-amber-700 dark:text-amber-300' },
+                    { value: 'low', label: 'Low', color: 'bg-emerald-500', textColor: 'text-emerald-700 dark:text-emerald-300' },
+                    { value: 'backlog', label: 'Backlog', color: 'bg-slate-500', textColor: 'text-slate-700 dark:text-slate-300' }
+                  ].map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => setFormData({ ...formData, priority: option.value as Priority })}
+                      className={`flex items-center justify-center py-3 px-2 rounded-lg border transition-all ${
+                        formData.priority === option.value
+                          ? `${option.color} border-${option.value === 'high' ? 'rose' : option.value === 'medium' ? 'amber' : option.value === 'low' ? 'emerald' : 'slate'}-500 text-white shadow-sm`
+                          : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 bg-white dark:bg-gray-800'
+                      }`}
+                    >
+                      <span className={formData.priority === option.value ? 'text-white' : option.textColor}>
+                        {option.label}
+                      </span>
+                    </button>
                   ))}
-                </select>
+                </div>
               </div>
               
               {/* Status */}
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
-                  <Check className="h-4 w-4" />
+                <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                   Status
                 </label>
-                <select
-                  value={formData.status}
-                  onChange={(e) => setFormData({ ...formData, status: e.target.value as unknown as Status })}
-                  className="w-full p-2 border-2 rounded-lg focus:border-blue-400 focus:outline-none bg-white dark:bg-gray-800"
-                >
-                  {statusOptions.map(option => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { value: 'pending', label: 'Pending', color: 'bg-gray-500', textColor: 'text-gray-700 dark:text-gray-300' },
+                    { value: 'in-progress', label: 'In Progress', color: 'bg-blue-500', textColor: 'text-blue-700 dark:text-blue-300' },
+                    { value: 'completed', label: 'Completed', color: 'bg-green-500', textColor: 'text-green-700 dark:text-green-300' }
+                  ].map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => setFormData({ ...formData, status: option.value as Status })}
+                      className={`flex items-center justify-center py-3 px-2 rounded-lg border transition-all ${
+                        formData.status === option.value
+                          ? `${option.color} border-${option.value === 'pending' ? 'gray' : option.value === 'in-progress' ? 'blue' : 'green'}-500 text-white shadow-sm`
+                          : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 bg-white dark:bg-gray-800'
+                      }`}
+                    >
+                      <span className={formData.status === option.value ? 'text-white' : option.textColor}>
+                        {option.label}
+                      </span>
+                    </button>
                   ))}
-                </select>
+                </div>
               </div>
               
               {/* Assignee */}
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
-                  <User className="h-4 w-4" />
+                <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                   Assignee
                 </label>
                 <select
                   value={formData.assignee}
                   onChange={(e) => setFormData({ ...formData, assignee: e.target.value })}
-                  className="w-full p-2 border-2 rounded-lg focus:border-blue-400 focus:outline-none bg-white dark:bg-gray-800"
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 rounded-xl bg-white dark:bg-gray-800 transition-colors"
                 >
-                  <option value="">👥 Unassigned</option>
+                  <option value="">Unassigned</option>
                   {users.map((user) => (
                     <option key={user._id} value={user._id}>
                       {user.name}
@@ -909,43 +926,48 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
             
             {/* Tags */}
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
-                <Tag className="h-4 w-4" />
-                Tags (comma separated)
+              <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                Tags
               </label>
               <Input
                 value={formData.tags}
                 onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
-                placeholder="e.g., frontend, urgent, design"
-                className="border-2 focus:border-blue-400"
+                placeholder="Add tags separated by commas (e.g., frontend, urgent, design)"
+                className="border border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 rounded-xl py-5 px-4"
               />
               {formData.tags && (
                 <div className="flex flex-wrap gap-2 mt-2">
-                  {formData.tags.split(',').map((tag, index) => (
-                    tag.trim() && (
-                      <Badge key={index} variant="secondary" className="px-2 py-1">
-                        {tag.trim()}
+                  {formData.tags.split(',').map((tag, index) => {
+                    const cleanTag = tag.trim();
+                    return cleanTag ? (
+                      <Badge key={index} variant="secondary" className="px-3 py-1 rounded-full text-sm">
+                        {cleanTag}
                       </Badge>
-                    )
-                  ))}
+                    ) : null;
+                  })}
                 </div>
               )}
             </div>
             
             {/* Action Buttons */}
-            <div className="flex gap-3 pt-4">
+            <div className="flex gap-3 pt-6">
               <Button 
                 type="submit" 
                 disabled={isLoading} 
-                className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
               >
-                {isLoading ? 'Saving...' : 'Save Changes'}
+                {isLoading ? (
+                  <span className="flex items-center justify-center">
+                    <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></span>
+                    Saving...
+                  </span>
+                ) : 'Save Changes'}
               </Button>
               <Button 
                 type="button" 
                 variant="outline" 
                 onClick={() => onOpenChange(false)}
-                className="px-8"
+                className="px-8 py-6 rounded-xl border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800/50 font-semibold"
               >
                 Cancel
               </Button>
@@ -958,16 +980,16 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
                     onOpenChange(false)
                   }
                 }}
-                className="px-8"
+                className="px-8 py-6 rounded-xl font-semibold"
               >
-                <Trash2 className="h-4 w-4 mr-2" />
+                <Trash2 className="h-5 w-5 mr-2" />
                 Delete
               </Button>
             </div>
           </form>
         ) : (
-          <div className="py-8 text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="py-12 text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
             <p className="text-gray-600 dark:text-gray-400">Loading task...</p>
           </div>
         )}

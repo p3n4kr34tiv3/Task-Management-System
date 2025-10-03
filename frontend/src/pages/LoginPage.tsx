@@ -3,16 +3,17 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { motion } from 'framer-motion'
-import { CheckCircle, ArrowLeft, Mail, Lock } from 'lucide-react'
+import { CheckCircle, ArrowLeft, Mail, Lock, Eye, EyeOff } from 'lucide-react'
 
 export const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [showPassword, setShowPassword] = useState(false)
   const { login } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -29,17 +30,17 @@ export const LoginPage: React.FC = () => {
   }
 
   return (
-    <div className="h-screen w-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-950 dark:via-gray-900 dark:to-indigo-950 overflow-y-auto fixed inset-0">
+    <div className="min-h-screen w-screen bg-gradient-to-br from-gray-50 via-slate-50 to-zinc-100 dark:from-gray-900 dark:via-gray-950 dark:to-slate-900 flex flex-col">
       {/* Header */}
       <header className="w-full px-6 py-6 flex-shrink-0 relative z-10">
-        <div className="container mx-auto">
+        <div className="max-w-7xl mx-auto">
           <nav className="flex items-center justify-between">
             <Link to="/" className="flex items-center space-x-2">
-              <div className="bg-blue-600 rounded-lg p-2">
+              <div className="bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl p-2 shadow-lg">
                 <CheckCircle className="h-6 w-6 text-white" />
               </div>
-              <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                Cleaner
+              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                Taskly
               </span>
             </Link>
             <div className="flex items-center space-x-4">
@@ -59,11 +60,12 @@ export const LoginPage: React.FC = () => {
           initial={{ opacity: 0, y: 20, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.5 }}
+          className="w-full max-w-md"
         >
-          <Card className="w-full max-w-md glass border-2 shadow-2xl">
-            <CardHeader className="text-center pb-2">
+          <Card className="w-full border-0 shadow-2xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl overflow-hidden">
+            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-center">
               <motion.div 
-                className="mx-auto mb-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full p-3 w-fit"
+                className="mx-auto mb-4 bg-white/20 rounded-full p-3 w-fit"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
@@ -75,18 +77,19 @@ export const LoginPage: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Welcome back
+                <CardTitle className="text-3xl font-bold text-white">
+                  Welcome Back
                 </CardTitle>
-                <p className="text-muted-foreground mt-2">
+                <p className="text-blue-100 mt-2">
                   Sign in to your account to continue
                 </p>
               </motion.div>
-            </CardHeader>
-            <CardContent>
+            </div>
+            
+            <CardContent className="p-8">
               <form onSubmit={handleSubmit} className="space-y-6">
                 {error && (
-                  <div className="p-4 text-sm text-red-600 bg-red-50 dark:bg-red-950/50 dark:text-red-400 rounded-lg border border-red-200 dark:border-red-800">
+                  <div className="p-4 text-sm text-red-600 bg-red-50 dark:bg-red-950/20 dark:text-red-400 rounded-xl border border-red-200 dark:border-red-800/50">
                     {error}
                   </div>
                 )}
@@ -96,14 +99,19 @@ export const LoginPage: React.FC = () => {
                     <Mail className="h-4 w-4" />
                     Email Address
                   </label>
-                  <Input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="border-2 focus:border-blue-400 h-12"
-                    required
-                  />
+                  <div className="relative">
+                    <Input
+                      type="email"
+                      placeholder="Enter your email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="pl-12 pr-4 py-6 text-base border border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 rounded-xl bg-white dark:bg-gray-800 transition-colors"
+                      required
+                    />
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <Mail className="h-5 w-5 text-gray-400" />
+                    </div>
+                  </div>
                 </div>
 
                 <div className="space-y-2">
@@ -111,31 +119,52 @@ export const LoginPage: React.FC = () => {
                     <Lock className="h-4 w-4" />
                     Password
                   </label>
-                  <Input
-                    type="password"
-                    placeholder="Enter your password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="border-2 focus:border-blue-400 h-12"
-                    required
-                  />
+                  <div className="relative">
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Enter your password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="pl-12 pr-12 py-6 text-base border border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 rounded-xl bg-white dark:bg-gray-800 transition-colors"
+                      required
+                    />
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <Lock className="h-5 w-5 text-gray-400" />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-0 pr-4 flex items-center"
+                    >
+                      {showPassword ? (
+                        <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" />
+                      ) : (
+                        <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" />
+                      )}
+                    </button>
+                  </div>
                 </div>
 
                 <Button 
                   type="submit" 
-                  className="w-full h-12 text-lg font-semibold bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-200" 
                   disabled={isLoading}
+                  className="w-full py-6 text-lg font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl"
                 >
-                  {isLoading ? 'Signing in...' : 'Sign In'}
+                  {isLoading ? (
+                    <span className="flex items-center justify-center">
+                      <span className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></span>
+                      Signing in...
+                    </span>
+                  ) : 'Sign In'}
                 </Button>
               </form>
 
               <div className="mt-8 text-center">
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
                   Don't have an account?{' '}
                   <Link 
                     to="/signup" 
-                    className="font-semibold text-blue-600 dark:text-blue-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+                    className="font-semibold text-blue-600 dark:text-blue-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                   >
                     Create one now
                   </Link>

@@ -111,7 +111,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <Router>
-            <div className="h-screen w-screen bg-background overflow-hidden fixed inset-0">
+            <div className="min-h-screen w-screen bg-background">
               <AnimatePresence mode="wait">
                 <Routes>
                   <Route 
