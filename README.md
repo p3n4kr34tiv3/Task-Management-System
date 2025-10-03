@@ -10,9 +10,9 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/license/username/taskly" />
-  <img src="https://img.shields.io/github/last-commit/username/taskly" />
-  <img src="https://img.shields.io/github/issues/username/taskly" />
+  <img src="https://img.shields.io/github/license/x0lg0n/task-management-system" />
+  <img src="https://img.shields.io/github/last-commit/x0lg0n/task-management-system" />
+  <img src="https://img.shields.io/github/issues/x0lg0n/task-management-system" />
 </p>
 
 A clean, minimal task management system where users can create, prioritize, and manage tasks with drag-and-drop boards.
@@ -116,8 +116,8 @@ A clean, minimal task management system where users can create, prioritize, and 
 
 ```bash
 # Clone the repository
-git clone https://github.com/username/taskly.git
-cd taskly
+git clone https://github.com/x0lg0n/task-management-system.git
+cd task-management-system
 
 # Install backend dependencies
 cd backend
@@ -302,7 +302,7 @@ We love contributions! Please read our [Contributing Guidelines](CONTRIBUTING.md
 
 ### Good First Issues
 
-Looking for a good way to contribute? Check out issues labeled with [good first issue](https://github.com/username/taskly/labels/good%20first%20issue).
+Looking for a good way to contribute? Check out issues labeled with [good first issue](https://github.com/x0lg0n/task-management-system/labels/good%20first%20issue).
 
 ## License
 
@@ -314,7 +314,7 @@ For security related issues, please refer to our [Security Policy](SECURITY.md).
 
 ## Support
 
-If you have any questions or need help, please [open an issue](https://github.com/username/taskly/issues/new) or contact the maintainers.
+If you have any questions or need help, please [open an issue](https://github.com/x0lg0n/task-management-system/issues/new) or contact the maintainers.
 
 ---
 
